@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using System;
 
 
 public class Game : MonoBehaviour
@@ -11,7 +13,9 @@ public class Game : MonoBehaviour
     [HideInInspector] public List<Route> readyRoutes = new();
     private int totalRoutes;
     public static int successPark;
- 
+    
+    public UnityAction OnCarCollision;
+
     private void Awake()
     {
         Instance = this;
@@ -20,7 +24,20 @@ public class Game : MonoBehaviour
     {
         totalRoutes = transform.GetComponentsInChildren<Route>().Length;
         successPark = 0;
-    }  
+        OnCarCollision += OnCarCollisionHandler; 
+    }
+
+    private void OnCarCollisionHandler()
+    {
+        Debug.Log("Game Over");
+        DOVirtual.DelayedCall(2f, () => 
+            {
+                int currentLevel = SceneManager.GetActiveScene().buildIndex;
+                if(currentLevel < SceneManager.sceneCountInBuildSettings)
+                    SceneManager.LoadScene(currentLevel);    
+            });
+    }
+
     public void RegisterRoute(Route route)
     {
         readyRoutes.Add(route);

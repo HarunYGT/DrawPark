@@ -6,6 +6,7 @@ public class Route : MonoBehaviour
 {
     [HideInInspector] public bool isActive = true;
     [HideInInspector] public Vector3[] linePoints;
+    public float maxLineLength;
 
     [SerializeField] LinesDrawer linesDrawer;
 

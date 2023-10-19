@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class LinesDrawer : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class LinesDrawer : MonoBehaviour
     RaycastDetector raycastDetector = new ();
 
     //Events 
+    public UnityAction<Route> OnBeginDraw;
+    public UnityAction OnDraw;
+    public UnityAction OnEndDraw;
+
     public UnityAction<Route , List<Vector3>> OnParkLinkedToLine;
 
     private void Start()
@@ -36,6 +41,8 @@ public class LinesDrawer : MonoBehaviour
                 currentRoute = _car.route;
                 currentLine = currentRoute.line;
                 currentLine.Init();
+
+                OnBeginDraw?.Invoke(currentRoute);  
             }
         }
     }
@@ -49,8 +56,15 @@ public class LinesDrawer : MonoBehaviour
             if(contactInfo.contacted)
             {
                 Vector3 newPoint = contactInfo.point;
+                if(currentLine.length >= currentRoute.maxLineLength)
+                {
+                    currentLine.Clear();
+                    OnMouseUpHandler();
+                    return;
+                }
 
                 currentLine.AddPoint(newPoint);
+                OnDraw?.Invoke();
 
                 bool isPark = contactInfo.collider.TryGetComponent(out Park _park);
 
@@ -60,6 +74,7 @@ public class LinesDrawer : MonoBehaviour
                     if(parkRoute == currentRoute)
                     {
                         currentLine.AddPoint(contactInfo.transform.position);
+                        OnDraw?.Invoke();
                     }
                     else
                     {
@@ -100,6 +115,7 @@ public class LinesDrawer : MonoBehaviour
             }
         }
         ResetDrawer();
+        OnEndDraw?.Invoke();
     }
     private void ResetDrawer()
     {
