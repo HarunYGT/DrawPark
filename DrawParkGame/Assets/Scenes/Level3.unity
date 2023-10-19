@@ -608,7 +608,7 @@ MonoBehaviour:
   explosionFX: {fileID: 2132917340}
   rb: {fileID: 251981223}
   danceValue: 0.9
-  durationMultiplier: 0.026
+  durationMultiplier: 0.05
 --- !u!54 &251981223
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -842,7 +842,7 @@ MonoBehaviour:
   explosionFX: {fileID: 1313397576}
   rb: {fileID: 369047770}
   danceValue: 0.9
-  durationMultiplier: 0.026
+  durationMultiplier: 0.05
 --- !u!54 &369047770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2275,7 +2275,7 @@ MonoBehaviour:
   explosionFX: {fileID: 1206590313}
   rb: {fileID: 921733175}
   danceValue: 0.9
-  durationMultiplier: 0.026
+  durationMultiplier: 0.05
 --- !u!54 &921733175
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4326,7 +4326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 1
   linePoints: []
-  maxLineLength: 10
+  maxLineLength: 7
   linesDrawer: {fileID: 108403192}
   line: {fileID: 699626450}
   car: {fileID: 251981222}

@@ -36,7 +36,7 @@ public class Car : MonoBehaviour
             AddExplosionForce(hitPoint);
             explosionFX.Play();
 
-            Game.Instance.OnCarCollision();
+            Game.Instance.OnCarCollision(); 
         }
     }
     private void AddExplosionForce(Vector3 point)
